@@ -1,0 +1,2 @@
+C:\Users\s3b0cs\code-projects\personal\xr-app\grid\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\s3b0cs\code-projects\personal\xr-app\grid\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
