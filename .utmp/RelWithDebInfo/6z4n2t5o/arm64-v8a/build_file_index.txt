@@ -1,0 +1,2 @@
+/Users/marvin/uni_local/ar-project/grid/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/marvin/uni_local/ar-project/grid/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

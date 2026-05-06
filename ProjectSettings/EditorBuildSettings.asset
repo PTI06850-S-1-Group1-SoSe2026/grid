@@ -5,11 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Archive/SampleScene.unity
+    guid: b73c70f339b974b91a05c6a9553366e8
+  - enabled: 0
+    path: Assets/Scenes/Archive/PassthroughBasicWithBBPlusRaycast.unity
+    guid: 214e5ba506fd34db39c336b57706b721
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainPrototype.unity
+    guid: d45613ff286714fd48c59449af5d749f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: ffae3304d69c3494d923c3545312dc79, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 726b944b14916b5459ef59be59e47175, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 0ebdd0f0efc579c4ba8c5f1cc89371cf, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d87d04b25677f402c9852e4181b2cd9e, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 845c30713c9bd47aca79aebe589c3993, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 04bc1ce55110d4916a30dd5102957da8, type: 2}
