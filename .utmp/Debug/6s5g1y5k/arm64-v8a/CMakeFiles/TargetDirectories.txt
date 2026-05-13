@@ -1,5 +1,0 @@
-/Users/marvin/uni_local/ar-project/grid/.utmp/Debug/6s5g1y5k/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/marvin/uni_local/ar-project/grid/.utmp/Debug/6s5g1y5k/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/marvin/uni_local/ar-project/grid/.utmp/Debug/6s5g1y5k/arm64-v8a/GameActivity/CMakeFiles/game.dir
-/Users/marvin/uni_local/ar-project/grid/.utmp/Debug/6s5g1y5k/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
-/Users/marvin/uni_local/ar-project/grid/.utmp/Debug/6s5g1y5k/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
