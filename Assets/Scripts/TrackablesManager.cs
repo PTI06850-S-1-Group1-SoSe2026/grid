@@ -1,17 +1,22 @@
+using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class TrackablesManager : MonoBehaviour
 {
-    [SerializeField] private GameObject trackedObjectPrefab;
-    [SerializeField] private Dictionary<string, GameObject> trackedObjects = new();
+    [SerializeField]
+    private GameObject trackedObjectPrefab;
+
+    private Dictionary<string, GameObject> trackedObjects = new();
 
     public void OnTrackableAdded(MRUKTrackable trackable)
     {
         Debug.Log($"Trackable of type {trackable.TrackableType} added");
 
-        if (trackable.TrackableType == OVRAnchor.TrackableType.QRCode && trackable.MarkerPayloadString != null)
+        if (
+            trackable.TrackableType == OVRAnchor.TrackableType.QRCode
+            && trackable.MarkerPayloadString != null
+        )
         {
             Debug.LogError($"Detected QR code: {trackable.MarkerPayloadString}");
             GameObject markerIndicator = Instantiate(trackedObjectPrefab, trackable.transform);
