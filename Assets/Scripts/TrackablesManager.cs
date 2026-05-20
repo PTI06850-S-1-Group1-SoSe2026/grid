@@ -11,7 +11,7 @@ public class TrackablesManager : MonoBehaviour
 
     public void OnTrackableAdded(MRUKTrackable trackable)
     {
-        Debug.Log($"Trackable of type {trackable.TrackableType} added");
+        Debug.LogError($"Trackable of type {trackable.TrackableType} added");
 
         if (
             trackable.TrackableType == OVRAnchor.TrackableType.QRCode
@@ -26,7 +26,15 @@ public class TrackablesManager : MonoBehaviour
 
     public void OnTrackableRemoved(MRUKTrackable trackable)
     {
-        Debug.Log($"Trackable of type {trackable.TrackableType} removed");
-        Destroy(transform.gameObject);
+        Debug.LogError($"Trackable of type {trackable.TrackableType} removed");
+
+        if (trackable.TrackableType == OVRAnchor.TrackableType.QRCode)
+        {
+            if (trackedObjects.TryGetValue(trackable.MarkerPayloadString, out GameObject marker))
+            {
+                Destroy(marker);
+                trackedObjects.Remove(trackable.MarkerPayloadString);
+            }
+        }
     }
 }
