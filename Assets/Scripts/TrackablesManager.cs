@@ -31,6 +31,9 @@ public class TrackablesManager : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             HandlePlacement();
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+            CalculateAndPlaceGrid();
     }
 
     public void OnTrackableAdded(MRUKTrackable trackable)
@@ -42,9 +45,12 @@ public class TrackablesManager : MonoBehaviour
             && trackable.MarkerPayloadString != null
         )
         {
-            Debug.LogError($"Detected QR code: {trackable.MarkerPayloadString}");
-            GameObject markerIndicator = Instantiate(trackedObjectPrefab, trackable.transform);
-            trackedObjects.Add(trackable.MarkerPayloadString, markerIndicator);
+            if (!trackedObjects.ContainsKey(trackable.MarkerPayloadString))
+            {
+                Debug.LogError($"Detected QR code: {trackable.MarkerPayloadString}");
+                GameObject markerIndicator = Instantiate(trackedObjectPrefab, trackable.transform);
+                trackedObjects.Add(trackable.MarkerPayloadString, markerIndicator);
+            }
         }
     }
 
@@ -95,11 +101,38 @@ public class TrackablesManager : MonoBehaviour
             // detach indicator from marker (qr code)
             obj.transform.SetParent(null);
 
-            trackedObjects.Remove(qrName);
+            // trackedObjects.Remove(qrName);
             return true;
         }
 
         Debug.LogError($"QR code {qrName} wasn't recognized yet");
         return false;
+    }
+
+    private void CalculateAndPlaceGrid()
+    {
+        if (
+            trackedObjects.TryGetValue(QR1_NAME, out GameObject qr1)
+            && trackedObjects.TryGetValue(QR2_NAME, out GameObject qr2)
+        )
+        {
+            Vector3 pos1 = qr1.transform.position;
+            Vector3 pos2 = qr2.transform.position;
+
+            Vector3 midpoint = (pos1 + pos2) / 2f;
+
+            Debug.LogError($"Midpoint: {midpoint}");
+
+            Generator generator = FindFirstObjectByType<Generator>();
+
+            if (generator != null)
+            {
+                generator.GenerateGrid(midpoint);
+            }
+            else
+            {
+                Debug.LogError("No GridGenerator found in scene");
+            }
+        }
     }
 }

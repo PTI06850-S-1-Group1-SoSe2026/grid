@@ -20,7 +20,6 @@ public class Generator : MonoBehaviour
         GenerateGrid(offset, new Vector3());
     }
 
-
     public void GenerateGrid(Vector3 offset, Vector3 rotation)
     {
         var gridShape = (CubeShape)ShapeExtension.Get(BaseShape);
