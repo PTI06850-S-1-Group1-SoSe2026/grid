@@ -120,14 +120,18 @@ public class TrackablesManager : MonoBehaviour
             Vector3 pos2 = qr2.transform.position;
 
             Vector3 midpoint = (pos1 + pos2) / 2f;
+            // TODO: change hard coded 0.5 when implementing scaling
+            Vector3 midpointMovedUp = midpoint + new Vector3(0, 0.5f, 0);
 
-            Debug.LogError($"Midpoint: {midpoint}");
+            Vector3 rotation = new Vector3(0, 0, 0);
+
+            Debug.LogError($"Midpoint: {midpointMovedUp}");
 
             Generator generator = FindFirstObjectByType<Generator>();
 
             if (generator != null)
             {
-                generator.GenerateGrid(midpoint);
+                generator.GenerateGrid(midpointMovedUp, rotation);
             }
             else
             {
