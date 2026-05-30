@@ -10,23 +10,24 @@ public class Generator : MonoBehaviour
     public GameObject MarkerPrefab;
     public float Density = 1;
 
-    public void GenerateGrid()
+    public GameObject GenerateGrid()
     {
-        GenerateGrid(new Vector3());
+        return GenerateGrid(new Vector3());
     }
 
-    public void GenerateGrid(Vector3 offset)
+    public GameObject GenerateGrid(Vector3 offset)
     {
-        GenerateGrid(offset, new Vector3());
+        return GenerateGrid(offset, new Vector3());
     }
 
-    public void GenerateGrid(Vector3 offset, Vector3 rotation)
+    public GameObject GenerateGrid(Vector3 offset, Vector3 rotation)
     {
         var gridShape = (CubeShape)ShapeExtension.Get(BaseShape);
         var baseShapeMr = gridShape.BaseShapePrefab.GetComponent<MeshRenderer>();
         baseShapeMr.material = BaseShapeMaterial;
 
         var parent = new GameObject();
+        gridShape.BaseShapePrefab.transform.SetParent(parent.transform);
         foreach (Vector3 point in gridShape.GetPoints(Density, true, false, true, true, true, true))
         {
             Instantiate(MarkerPrefab, point, Quaternion.identity, parent.transform);
@@ -34,9 +35,8 @@ public class Generator : MonoBehaviour
 
         // apply modifiers
         parent.transform.Translate(offset);
-        gridShape.BaseShapePrefab.transform.Translate(offset);
-
         parent.transform.Rotate(rotation);
-        gridShape.BaseShapePrefab.transform.Rotate(rotation);
+
+        return parent;
     }
 }
