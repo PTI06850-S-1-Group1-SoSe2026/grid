@@ -10,6 +10,8 @@ using UnityEngine;
  */
 public class TrackablesManager : MonoBehaviour
 {
+    private GameObject currentGrid;
+
     public enum PlacementState
     {
         None,
@@ -127,11 +129,17 @@ public class TrackablesManager : MonoBehaviour
 
             Debug.LogError($"Midpoint: {midpointMovedUp}");
 
+            if (currentGrid != null)
+            {
+                Destroy(currentGrid);
+                currentGrid = null;
+            }
+
             Generator generator = FindFirstObjectByType<Generator>();
 
             if (generator != null)
             {
-                generator.GenerateGrid(midpointMovedUp, rotation);
+                currentGrid = generator.GenerateGrid(midpointMovedUp, rotation);
             }
             else
             {
