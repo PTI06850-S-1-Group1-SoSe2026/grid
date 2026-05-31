@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
@@ -121,13 +122,7 @@ public class TrackablesManager : MonoBehaviour
             Vector3 pos1 = qr1.transform.position;
             Vector3 pos2 = qr2.transform.position;
 
-            Vector3 midpoint = (pos1 + pos2) / 2f;
-            // TODO: change hard coded 0.5 when implementing scaling
-            Vector3 midpointMovedUp = midpoint + new Vector3(0, 0.5f, 0);
-
             Vector3 rotation = new Vector3(0, 0, 0);
-
-            Debug.LogError($"Midpoint: {midpointMovedUp}");
 
             if (currentGrid != null)
             {
@@ -139,12 +134,31 @@ public class TrackablesManager : MonoBehaviour
 
             if (generator != null)
             {
-                currentGrid = generator.GenerateGrid(midpointMovedUp, rotation);
+                currentGrid = generator.GenerateGrid(CalculateMidpointOfGrid(pos1, pos2), rotation);
+                float edgeLength = (float)CalculateGridEdgeLength(pos1, pos2);
+                currentGrid.transform.localScale = new Vector3(edgeLength, edgeLength, edgeLength);
             }
             else
             {
                 Debug.LogError("No GridGenerator found in scene");
             }
         }
+    }
+
+    private Vector3 CalculateMidpointOfGrid(Vector3 pos1, Vector3 pos2)
+    {
+        Vector3 midpointOfMarkers = (pos1 + pos2) / 2f;
+        double distanceBetweenMarkers = Vector3.Distance(pos1, pos2);
+        float halfEdgeLength = (float)(CalculateGridEdgeLength(pos1, pos2) / 2.0);
+        return midpointOfMarkers + new Vector3(0, halfEdgeLength, 0);
+    }
+
+    /**
+     * This method is implemented based on the calculation of pythagoras theorem.
+     */
+    private double CalculateGridEdgeLength(Vector3 pos1, Vector3 pos2)
+    {
+        double d = Vector3.Distance(pos1, pos2); // distance between the markers
+        return d * Math.Sqrt(2) / 2; // cube edge length
     }
 }
