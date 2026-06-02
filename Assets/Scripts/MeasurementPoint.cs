@@ -8,14 +8,11 @@ public class MeasurementPoint : MonoBehaviour
     [SerializeField]
     private Material activeMaterial;
 
-    private static readonly string MICROPHONE_NAME = "DummyMicrophone";
-
     void OnTriggerEnter(Collider other)
     {
         Debug.LogError("A collider has made contact with a MeasurementPoint");
-        if (other.name.Equals(MICROPHONE_NAME))
+        if (other.CompareTag("Microphone"))
         {
-            Debug.LogError(gameObject.GetComponent<Renderer>());
             gameObject.GetComponent<Renderer>().material = activeMaterial;
         }
     }
@@ -23,7 +20,7 @@ public class MeasurementPoint : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         Debug.LogError("A collider has ceased contact with a MeasurementPoint");
-        if (other.name.Equals(MICROPHONE_NAME))
+        if (other.CompareTag("Microphone"))
         {
             gameObject.GetComponent<Renderer>().material = inactiveMaterial;
         }
