@@ -1,3 +1,4 @@
+using Oculus.Interaction.Samples;
 using UnityEngine;
 
 public class Generator : MonoBehaviour
@@ -9,6 +10,9 @@ public class Generator : MonoBehaviour
     [Header("Marker")]
     public GameObject MarkerPrefab;
     public float Density = 1;
+
+    [Header("UI Drop Down")]
+    public DropDownGroup dropDownGroup;
 
     public GameObject GenerateGrid()
     {
@@ -38,5 +42,15 @@ public class Generator : MonoBehaviour
         parent.transform.Rotate(rotation);
 
         return parent;
+    }
+
+    public void Start()
+    {
+        dropDownGroup.WhenSelectionChanged.AddListener(OnDropDownChanged);
+    }
+
+    private void OnDropDownChanged(int index)
+    {
+        Debug.LogError($"Neue Auswahl: {index}");
     }
 }

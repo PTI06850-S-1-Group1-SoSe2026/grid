@@ -183,6 +183,7 @@ MonoBehaviour:
   BaseShapeMaterial: {fileID: 2100000, guid: 24a2b8b33f8fc4393ac70a1b5f4b275e, type: 2}
   MarkerPrefab: {fileID: 251198019582290066, guid: 392ba617b32e5419eafd64a7885bc2ac, type: 3}
   Density: 1
+  dropDownGroup: {fileID: 729186442}
 --- !u!4 &84799810
 Transform:
   m_ObjectHideFlags: 0
@@ -1132,6 +1133,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6995516718860365794, guid: 489d4be4aa493224a81def86c2f706b4, type: 3}
   m_PrefabInstance: {fileID: 729186440}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &729186442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3768555871589625888, guid: 489d4be4aa493224a81def86c2f706b4, type: 3}
+  m_PrefabInstance: {fileID: 729186440}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d02efd1dd7ee874294db5cedd098de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &769376312
 PrefabInstance:
   m_ObjectHideFlags: 0
