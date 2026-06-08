@@ -32,7 +32,7 @@ public class TrackablesManager : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
             HandlePlacement();
 
         if (OVRInput.GetDown(OVRInput.RawButton.A))
