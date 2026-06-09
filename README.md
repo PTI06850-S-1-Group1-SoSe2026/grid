@@ -3,10 +3,10 @@
 Unless a file states otherwise, the original source code and original assets under following directory are licensed under GPL-3.0-or-later:
 
 - `Assets/GridShapes/`
-- `Assets/Materials`
-- `Assets/Prefabs`
+- `Assets/Materials/`
+- `Assets/Prefabs/`
 - `Assets/Scenes/MainPrototype.unity`
-- `Assets/Scripts`
+- `Assets/Scripts/`
 
 This GPL License does not apply to the Unity Editor, Unity Runtime, Meta XR Core SDK, Meta MR Utility Kit, or any other third-party SDK, package, assets, or sample. Those components remain under their own licenses and must be installed separately. 
 
