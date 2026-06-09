@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class MeasurementPoint : MonoBehaviour
 {
-    [SerializeField]
-    private Material inactiveMaterial;
+    [Header("Materials")]
+    public Material inactiveMaterial;
+    public Material activeMaterial;
 
-    [SerializeField]
-    private Material activeMaterial;
-
-    [SerializeField]
     private MeasurementProcess measurementProcess;
 
     void OnTriggerEnter(Collider other)
@@ -34,5 +31,10 @@ public class MeasurementPoint : MonoBehaviour
                 gameObject.GetComponent<Renderer>().material = inactiveMaterial;
             }
         }
+    }
+
+    private void Awake()
+    {
+        measurementProcess = FindAnyObjectByType<MeasurementProcess>();
     }
 }

@@ -28,6 +28,7 @@ public class MeasurementProcess : MonoBehaviour
     public void increaseMeasuredPoints()
     {
         _measuredPoints += 1;
+        updateLabel();
     }
 
     // ----------- helper methods -----------

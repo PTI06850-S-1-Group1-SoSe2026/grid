@@ -130,7 +130,7 @@ public class TrackablesManager : MonoBehaviour
                 currentGrid = null;
             }
 
-            Generator generator = FindFirstObjectByType<Generator>();
+            Generator generator = FindAnyObjectByType<Generator>();
 
             if (generator != null)
             {
