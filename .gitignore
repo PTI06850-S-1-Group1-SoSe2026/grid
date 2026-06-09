@@ -73,3 +73,7 @@ crashlytics-build.properties
 # Other
 .blob
 .utmp
+
+# Risky archive / recovery folders
+Assets/Scenes/Archive/
+Assets/_Recovery/
