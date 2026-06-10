@@ -1,16 +1,33 @@
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
+
+class Vector3Comparator : IEqualityComparer<Vector3>
+{
+    readonly float epsilon = .1f;
+
+    public bool Equals(Vector3 x, Vector3 y)
+    {
+        return Mathf.Abs(x.x - y.x) <= epsilon && Mathf.Abs(x.y - y.y) <= epsilon && Mathf.Abs(x.z - y.z) <= epsilon;
+    }
+
+    public int GetHashCode(Vector3 obj)
+    {
+        int x = Mathf.RoundToInt(obj.x / epsilon);
+        int y = Mathf.RoundToInt(obj.y / epsilon);
+        int z = Mathf.RoundToInt(obj.z / epsilon);
+
+        return HashCode.Combine(x, y, z);
+    }
+}
 
 public class CubeShape : GridShape
 {
     private readonly GameObject _baseShape = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-    public override GameObject BaseShapePrefab
-    {
-        get { return _baseShape; }
-    }
+    public override GameObject BaseShapePrefab { get { return _baseShape; } }
 
     public override List<Vector3> GetPoints(float density)
     {
@@ -30,43 +47,27 @@ public class CubeShape : GridShape
                     var pointSet = new List<Vector3>()
                     {
                         (i < bounds.y && f < bounds.x)
-                            ? new Vector3(
-                                i - (bounds.x / 2) + (bounds.x / density / 2),
-                                f - (bounds.y / 2) + (bounds.x / density / 2),
-                                side
-                            )
-                            : new Vector3(),
-                        new(i - (bounds.x / 2), f - (bounds.y / 2), side),
+                          ? new Vector3(i - (bounds.x / 2) + (bounds.x / density / 2), f - (bounds.y / 2) + (bounds.x / density / 2), side)
+                          : new Vector3(),
+                        new(i - (bounds.x / 2), f - (bounds.y / 2), side)
                     };
                     points.AddRange(pointSet);
 
                     // add other sides
                     foreach (Vector3 point in pointSet)
                     {
-                        points.AddRange(
-                            new Vector3[]
-                            {
-                                Quaternion.AngleAxis(90f, Vector3.up) * (point - pivot) + pivot,
-                                Quaternion.AngleAxis(90f, Vector3.right) * (point - pivot) + pivot,
-                            }
-                        );
+                        points.AddRange(new Vector3[] { Quaternion.AngleAxis(90f, Vector3.up) * (point - pivot) + pivot, Quaternion.AngleAxis(90f, Vector3.right) * (point - pivot) + pivot });
                     }
                 }
             }
         }
 
+        points = points.Distinct(new Vector3Comparator()).ToList();
+
         return points;
     }
 
-    public List<Vector3> GetPoints(
-        float density,
-        bool top,
-        bool bottom,
-        bool left,
-        bool right,
-        bool front,
-        bool back
-    )
+    public List<Vector3> GetPoints(float density, bool top, bool bottom, bool left, bool right, bool front, bool back)
     {
         var points = this.GetPoints(density);
 
