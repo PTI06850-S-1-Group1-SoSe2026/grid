@@ -137,6 +137,7 @@ public class TrackablesManager : MonoBehaviour
                 currentGrid = generator.GenerateGrid(CalculateMidpointOfGrid(pos1, pos2), rotation);
                 float edgeLength = (float)CalculateGridEdgeLength(pos1, pos2);
                 currentGrid.transform.localScale = new Vector3(edgeLength, edgeLength, edgeLength);
+                foreach (var elm in currentGrid.GetComponentsInChildren<MeasurementPoint>()) elm.transform.localScale *= 1 / currentGrid.transform.localScale.x;
             }
             else
             {
