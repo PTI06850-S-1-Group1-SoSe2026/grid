@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class MeasurementPoint : MonoBehaviour
 {
-    [SerializeField]
-    private Material inactiveMaterial;
+    [Header("Materials")]
+    public Material inactiveMaterial;
+    public Material activeMaterial;
 
-    [SerializeField]
-    private Material activeMaterial;
+    private MeasurementProcess measurementProcess;
 
     void OnTriggerEnter(Collider other)
     {
@@ -14,6 +14,10 @@ public class MeasurementPoint : MonoBehaviour
         if (other.CompareTag("Microphone"))
         {
             gameObject.GetComponent<Renderer>().material = activeMaterial;
+            if (measurementProcess.IsProcessActive)
+            {
+                measurementProcess.increaseMeasuredPoints();
+            }
         }
     }
 
@@ -22,7 +26,15 @@ public class MeasurementPoint : MonoBehaviour
         Debug.LogError("A collider has ceased contact with a MeasurementPoint");
         if (other.CompareTag("Microphone"))
         {
-            gameObject.GetComponent<Renderer>().material = inactiveMaterial;
+            if (!measurementProcess.IsProcessActive)
+            {
+                gameObject.GetComponent<Renderer>().material = inactiveMaterial;
+            }
         }
+    }
+
+    private void Awake()
+    {
+        measurementProcess = FindAnyObjectByType<MeasurementProcess>();
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
+using TMPro;
 using UnityEngine;
 
 /**
@@ -32,7 +33,7 @@ public class TrackablesManager : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
             HandlePlacement();
 
         if (OVRInput.GetDown(OVRInput.RawButton.A))
@@ -130,13 +131,17 @@ public class TrackablesManager : MonoBehaviour
                 currentGrid = null;
             }
 
-            Generator generator = FindFirstObjectByType<Generator>();
+            Generator generator = FindAnyObjectByType<Generator>();
 
             if (generator != null)
             {
                 currentGrid = generator.GenerateGrid(CalculateMidpointOfGrid(pos1, pos2), rotation);
                 float edgeLength = (float)CalculateGridEdgeLength(pos1, pos2);
                 currentGrid.transform.localScale = new Vector3(edgeLength, edgeLength, edgeLength);
+                foreach (var elm in currentGrid.GetComponentsInChildren<MeasurementPoint>())
+                    elm.transform.localScale *= 1 / currentGrid.transform.localScale.x;
+                foreach (var elm in currentGrid.GetComponentsInChildren<TextMeshPro>())
+                    elm.transform.localScale *= 1 / currentGrid.transform.localScale.x * 0.3f;
             }
             else
             {
