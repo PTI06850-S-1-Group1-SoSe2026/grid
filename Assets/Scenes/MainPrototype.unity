@@ -182,6 +182,8 @@ MonoBehaviour:
   BaseShapeMaterial: {fileID: 2100000, guid: 24a2b8b33f8fc4393ac70a1b5f4b275e, type: 2}
   MarkerPrefab: {fileID: 251198019582290066, guid: 392ba617b32e5419eafd64a7885bc2ac, type: 3}
   Density: 1
+  TextMeshPrefab: {fileID: 7319232125829685797, guid: cf430d737f05f46b78d5712303b271a8, type: 3}
+  CameraToLookAt: {fileID: 833558845}
 --- !u!4 &84799810
 Transform:
   m_ObjectHideFlags: 0

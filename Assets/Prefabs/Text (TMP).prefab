@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5089729089017067800}
   - component: {fileID: 3291203779495763580}
   - component: {fileID: 3818978364830436968}
-  - component: {fileID: 5072583189476697062}
+  - component: {fileID: 496233481330296781}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3291203779495763580}
   m_maskType: 0
---- !u!114 &5072583189476697062
+--- !u!114 &496233481330296781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7319232125829685797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92fec8389cf4346d29ab07a6328179b4, type: 3}
+  m_Script: {fileID: 11500000, guid: ef52f377a8a10409ba6638e6b87b30ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookAtCamera
   CameraToLookAt: {fileID: 0}
