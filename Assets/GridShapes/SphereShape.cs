@@ -9,7 +9,7 @@ public class SphereShape : GridShape
     public SphereShape()
     {
         _baseShape.transform.localScale = new(2, 2, 2);
-        _baseShape.transform.position -= new Vector3(0, 1, 0);
+        _baseShape.transform.position -= new Vector3(0, .5f, 0);
     }
 
     public override GameObject BaseShapePrefab
@@ -41,6 +41,8 @@ public class SphereShape : GridShape
             new(.43f, .67f, .61f),
             new(-.56f, .83f, .02f),
             new(.14f, .99f, .04f),
-        }.Select(e => e + new Vector3(0, -1, 0)).ToList();
+        }
+            .Select(e => e + new Vector3(0, -.5f, 0))
+            .ToList();
     }
 }

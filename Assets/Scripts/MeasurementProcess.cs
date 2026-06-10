@@ -42,9 +42,11 @@ public class MeasurementProcess : MonoBehaviour
 
     private void updateLabel()
     {
-        var gridShape = ShapeExtension.Get(GridGenerator.BaseShape);
         var density = 1f;
         StatusLabel.text =
-            "Measured \n Points: " + _measuredPoints + "/" + gridShape.GetPoints(density).Count;
+            "Measured \n Points: "
+            + _measuredPoints
+            + "/"
+            + GridGenerator.gridShape.GetPoints(density).Count;
     }
 }
