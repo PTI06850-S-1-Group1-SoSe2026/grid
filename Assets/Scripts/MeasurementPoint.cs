@@ -1,3 +1,4 @@
+using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class MeasurementPoint : MonoBehaviour
@@ -7,6 +8,7 @@ public class MeasurementPoint : MonoBehaviour
     public Material activeMaterial;
 
     private MeasurementProcess measurementProcess;
+    private bool measured;
 
     void OnTriggerEnter(Collider other)
     {
@@ -14,7 +16,12 @@ public class MeasurementPoint : MonoBehaviour
         if (other.CompareTag("Microphone"))
         {
             gameObject.GetComponent<Renderer>().material = activeMaterial;
-            if (measurementProcess.IsProcessActive)
+            if (
+                measurementProcess.IsProcessActive
+                && !measured
+                && OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)
+            // TODO: test everything!!
+            )
             {
                 measurementProcess.increaseMeasuredPoints();
             }
