@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /**
  * Fixing the indicators works as follows:
@@ -24,10 +25,17 @@ public class TrackablesManager : MonoBehaviour
     [SerializeField]
     private GameObject trackedObjectPrefab;
 
+    [Header("UI Controls")]
+    public Button ResetFixationButton;
+    public TMP_Text FixationStatusLabel;
+
     private Dictionary<string, GameObject> trackedObjects = new();
 
     public static string QR1_NAME = "QR_1";
     public static string QR2_NAME = "QR_2";
+
+    private Transform qr1IndicatorParent;
+    private Transform qr2IndicatorParent;
 
     private PlacementState currentState = PlacementState.None;
 
@@ -38,6 +46,11 @@ public class TrackablesManager : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.A))
             CalculateAndPlaceGrid();
+    }
+
+    public void Start()
+    {
+        ResetFixationButton.onClick.AddListener(OnResetFixationButtonClick);
     }
 
     public void OnTrackableAdded(MRUKTrackable trackable)
@@ -96,12 +109,21 @@ public class TrackablesManager : MonoBehaviour
                 Debug.LogError("All Indicators have already been fixed");
                 break;
         }
+        UpdateFixationStatusLabel();
     }
 
     private bool FixIndicator(string qrName)
     {
         if (trackedObjects.TryGetValue(qrName, out GameObject obj))
         {
+            if (qrName == QR1_NAME)
+            {
+                qr1IndicatorParent = obj.transform.parent;
+            }
+            else if (qrName == QR2_NAME)
+            {
+                qr2IndicatorParent = obj.transform.parent;
+            }
             // detach indicator from marker (qr code)
             obj.transform.SetParent(null);
 
@@ -165,5 +187,57 @@ public class TrackablesManager : MonoBehaviour
     {
         double d = Vector3.Distance(pos1, pos2); // distance between the markers
         return d * Math.Sqrt(2) / 2; // cube edge length
+    }
+
+    private void OnResetFixationButtonClick()
+    {
+        Debug.LogError("Resetting fixation...");
+        ResetFixation();
+        UpdateFixationStatusLabel();
+    }
+
+    private void ResetFixation()
+    {
+        // ATTENTION: this method just resets the internal fixation, but not the labels inside the UI
+
+        // INFO: the following function should better be implemented dynamically, but we didn't have enough time to do that. sorry xD
+        if (currentState != PlacementState.None)
+        {
+            if (currentState == PlacementState.QR1Fixed || currentState == PlacementState.QR2Fixed)
+            {
+                if (trackedObjects.TryGetValue(QR1_NAME, out GameObject objQR1))
+                {
+                    objQR1.transform.SetParent(qr1IndicatorParent);
+                }
+            }
+            if (currentState == PlacementState.QR2Fixed)
+            {
+                if (trackedObjects.TryGetValue(QR2_NAME, out GameObject objQR2))
+                {
+                    objQR2.transform.SetParent(qr2IndicatorParent);
+                }
+            }
+            currentState = PlacementState.None;
+        }
+    }
+
+    private void UpdateFixationStatusLabel()
+    {
+        String fixationStatus = "Fixation Status:\n";
+
+        switch (currentState)
+        {
+            case PlacementState.None:
+                fixationStatus += "nothing fixed";
+                break;
+            case PlacementState.QR1Fixed:
+                fixationStatus += "QR_1 is fixed";
+                break;
+            case PlacementState.QR2Fixed:
+                fixationStatus += "both fixed";
+                break;
+        }
+
+        FixationStatusLabel.text = fixationStatus;
     }
 }

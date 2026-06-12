@@ -44,7 +44,7 @@ public class MeasurementProcess : MonoBehaviour
     {
         var density = 1f;
         StatusLabel.text =
-            "Measured \n Points: "
+            "Measured Points: "
             + _measuredPoints
             + "/"
             + GridGenerator.gridShape.GetPoints(density).Count;
