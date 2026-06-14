@@ -23,6 +23,7 @@ public class MeasurementPoint : MonoBehaviour
             // TODO: test everything!!
             )
             {
+				measured = true;
                 measurementProcess.increaseMeasuredPoints();
             }
         }
@@ -44,4 +45,9 @@ public class MeasurementPoint : MonoBehaviour
     {
         measurementProcess = FindAnyObjectByType<MeasurementProcess>();
     }
+    
+    public void setUnmeasured() {
+		measured = false;
+		gameObject.GetComponent<Renderer>().material = inactiveMaterial;
+	}
 }

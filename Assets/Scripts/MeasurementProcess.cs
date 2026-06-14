@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MeasurementProcess : MonoBehaviour
 {
+	private GameObject currentGrid;
+	
     [Header("UI Components")]
     public TMP_Text StatusLabel;
 
@@ -15,12 +17,14 @@ public class MeasurementProcess : MonoBehaviour
 
     public void startProcess()
     {
+	Debug.LogError("Starting measurement process startProcess()...");
         IsProcessActive = true;
         updateLabel();
     }
 
     public void endProcess()
     {
+	Debug.LogError("Ending measurement process endProcess()...");
         IsProcessActive = false;
         reset();
     }
@@ -37,7 +41,9 @@ public class MeasurementProcess : MonoBehaviour
     {
         _measuredPoints = 0;
         updateLabel();
-        // TODO: reset colors of all measurement points
+        foreach (var elm in currentGrid.GetComponentsInChildren<MeasurementPoint>()) {
+			elm.setUnmeasured();
+		}
     }
 
     private void updateLabel()
@@ -48,5 +54,10 @@ public class MeasurementProcess : MonoBehaviour
             + _measuredPoints
             + "/"
             + GridGenerator.gridShape.GetPoints(density).Count;
+    }
+    
+    public void setCurrentGrid(GameObject grid)
+    {
+        currentGrid = grid;
     }
 }
