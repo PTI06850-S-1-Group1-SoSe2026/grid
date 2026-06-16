@@ -164,6 +164,14 @@ public class TrackablesManager : MonoBehaviour
                     elm.transform.localScale *= 1 / currentGrid.transform.localScale.x;
                 foreach (var elm in currentGrid.GetComponentsInChildren<TextMeshPro>())
                     elm.transform.localScale *= 1 / currentGrid.transform.localScale.x * 0.3f;
+
+		// MeasurementProcess needs list of MeasurementPoints to iterate
+                MeasurementProcess mp = FindAnyObjectByType<MeasurementProcess>();
+                if (mp != null) {
+					mp.setCurrentGrid(currentGrid);
+				} else {
+					Debug.LogError("No MeasurementProcess found in scene");
+				}
             }
             else
             {
