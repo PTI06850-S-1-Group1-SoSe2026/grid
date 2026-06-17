@@ -1,7 +1,7 @@
 using Oculus.Interaction.Samples;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class UILogic : MonoBehaviour
 {
@@ -11,12 +11,19 @@ public class UILogic : MonoBehaviour
     [Header("Measurement Process")]
     public MeasurementProcess measurementProcess;
     public Button startMeasuringButton;
-    
+
     [Header("Measurement Button Icon")]
-    [SerializeField] private Image buttonIcon;
-    [SerializeField] private TMP_Text buttonLabel;
-    [SerializeField] public Sprite startIcon;
-	[SerializeField] public Sprite stopIcon;
+    [SerializeField]
+    private Image buttonIcon;
+
+    [SerializeField]
+    private TMP_Text buttonLabel;
+
+    [SerializeField]
+    public Sprite startIcon;
+
+    [SerializeField]
+    public Sprite stopIcon;
 
     [Header("Grid Generator")]
     public Generator gridGenerator;
@@ -30,7 +37,12 @@ public class UILogic : MonoBehaviour
     private void OnDropDownChanged(int index)
     {
         // INFO: This method uses hard coded integers to determine which Shape should be set.
-        measurementProcess.endProcess();
+
+        if (measurementProcess.IsProcessActive)
+        {
+            measurementProcess.endProcess();
+        }
+
         switchButtonVisualsToStart();
 
         if (index == 0)
@@ -45,21 +57,25 @@ public class UILogic : MonoBehaviour
 
     private void OnStartMeasuringButtonClick()
     {
-		Debug.LogError("Registered Button Click");
-		if (measurementProcess.IsProcessActive){
-			Debug.LogError("Ending measurement process...");
-			measurementProcess.endProcess();
-			switchButtonVisualsToStart();
-		} else {
-        	Debug.LogError("Starting measurement process...");
-        	measurementProcess.startProcess();
-        	buttonLabel.text = "Stop Measuring";
-        	buttonIcon.sprite = stopIcon;
+        Debug.LogError("Registered Button Click");
+        if (measurementProcess.IsProcessActive)
+        {
+            Debug.LogError("Ending measurement process...");
+            measurementProcess.endProcess();
+            switchButtonVisualsToStart();
+        }
+        else
+        {
+            Debug.LogError("Starting measurement process...");
+            measurementProcess.startProcess();
+            buttonLabel.text = "Stop Measuring";
+            buttonIcon.sprite = stopIcon;
         }
     }
-    
-    private void switchButtonVisualsToStart() {
-		buttonLabel.text = "Start Measuring";
+
+    private void switchButtonVisualsToStart()
+    {
+        buttonLabel.text = "Start Measuring";
         buttonIcon.sprite = startIcon;
-	}
+    }
 }

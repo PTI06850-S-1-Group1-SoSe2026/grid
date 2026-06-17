@@ -8,22 +8,32 @@ public class MeasurementPoint : MonoBehaviour
     public Material activeMaterial;
 
     private MeasurementProcess measurementProcess;
-    private bool measured;
+    private bool measured = false;
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.LogError("A collider has made contact with a MeasurementPoint");
         if (other.CompareTag("Microphone"))
         {
+            Debug.LogError(
+                "A collider of a Microphone-tagged object has made contact with a MeasurementPoint"
+            );
             gameObject.GetComponent<Renderer>().material = activeMaterial;
+
+            // for debugging
+            Debug.LogError(
+                "measurementProcess.IsProcessActive: " + measurementProcess.IsProcessActive
+            );
+            Debug.LogError("measured: " + measured);
+            Debug.LogError("hand trigger: " + OVRInput.Get(OVRInput.RawButton.RHandTrigger));
+
             if (
                 measurementProcess.IsProcessActive
                 && !measured
-                && OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)
-            // TODO: test everything!!
+                && OVRInput.Get(OVRInput.RawButton.RHandTrigger)
             )
             {
-				measured = true;
+                Debug.LogError("********** point measured");
+                measured = true;
                 measurementProcess.increaseMeasuredPoints();
             }
         }
@@ -31,10 +41,12 @@ public class MeasurementPoint : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        Debug.LogError("A collider has ceased contact with a MeasurementPoint");
         if (other.CompareTag("Microphone"))
         {
-            if (!measurementProcess.IsProcessActive)
+            Debug.LogError(
+                "A collider of a Microphone-tagged object has ceased contact with a MeasurementPoint"
+            );
+            if (!measured)
             {
                 gameObject.GetComponent<Renderer>().material = inactiveMaterial;
             }
@@ -45,9 +57,10 @@ public class MeasurementPoint : MonoBehaviour
     {
         measurementProcess = FindAnyObjectByType<MeasurementProcess>();
     }
-    
-    public void setUnmeasured() {
-		measured = false;
-		gameObject.GetComponent<Renderer>().material = inactiveMaterial;
-	}
+
+    public void setUnmeasured()
+    {
+        measured = false;
+        gameObject.GetComponent<Renderer>().material = inactiveMaterial;
+    }
 }
