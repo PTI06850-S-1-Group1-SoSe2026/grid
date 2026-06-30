@@ -3,12 +3,28 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - MeasurementPoint
+  - Microphone
+  - QDSUIBackplateGradient
+  - QDSUIIcon
+  - QDSUITextSecondaryColor
+  - QDSUITooltip
+  - QDSUIToggleButton
+  - QDSUIToggleBorderlessButton
+  - QDSUIBorderlessButton
+  - QDSUISharedThemeColor
+  - QDSUIDestructiveButton
+  - QDSUISecondaryButton
+  - QDSUIPrimaryButton
+  - QDSUIAccentColor
+  - QDSUITextInvertedColor
+  - QDSUITextSecondaryInvertedColor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Overlay UI
   - Water
   - UI
   - 
